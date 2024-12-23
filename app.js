@@ -1,5 +1,8 @@
 var express =require('express') 
 var bodyParser=require('body-parser') 
+var mongoose=require('mongoose')
+
+var {userModel}=require('./model/userModel')
 
 var app=express()
 
@@ -10,11 +13,10 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 app.post('/home',(req,res)=>{
-    var getUsername=req.body.userName
-    var getPassword=req.body.Password
-
-    res.json({"userName":getUsername , "password":getPassword})
-    //res.send('welcome'+ getUsername)
+  
+    const userObject=new userModel(req.body)
+    res.json(userObject)
+    
 })
 
 app.listen(3000)
